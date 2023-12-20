@@ -8,18 +8,20 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="header">
-        <h1>FLAMES</h1>
-    </div>
-    <div class="inputs">
-        <label for="n1">Name 1</label>
-        <input type="text" name="name1" id="n1">
-        <label for="n2">Name 2</label>
-        <input type="text" name="name2" id="n2">
-    </div>
-    <button onclick="Myfunction()">click me</button>
-    <div class="ansbox">
-        <h1 id="ans"></h1>
+    <div class="container">
+        <div class="inputs">
+            <div class="header">
+                <h1>FLAMES</h1>
+            </div>
+          <label for="n1">Name 1</label>
+          <input type="text" name="name1" id="n1" placeholder="Enter your name">
+          <label for="n2">Name 2</label>
+          <input type="text" name="name2" id="n2" placeholder="Enter your partner name">
+          <button onclick="Myfunction()">Calculate</button>
+          <div class="ansbox">
+            <p id="ans">Enter Names</p>
+          </div>
+        </div>
     </div>
 </body>
 </html>
