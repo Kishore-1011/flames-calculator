@@ -11,10 +11,10 @@ test('normalise keeps letters only, in lower case', () => {
 });
 
 test('shared letters cancel out one for one', () => {
-    const { a, b, remaining } = compareNames('Kishore', 'Priya');
-    assert.deepStrictEqual(a.filter((l) => l.matched).map((l) => l.char), ['i', 'r']);
-    assert.deepStrictEqual(b.filter((l) => l.matched).map((l) => l.char), ['r', 'i']);
-    assert.strictEqual(remaining, 8);
+    const { a, b, remaining } = compareNames('Arjun', 'Meera');
+    assert.deepStrictEqual(a.filter((l) => l.matched).map((l) => l.char), ['a', 'r']);
+    assert.deepStrictEqual(b.filter((l) => l.matched).map((l) => l.char), ['r', 'a']);
+    assert.strictEqual(remaining, 6);
 });
 
 test('repeated letters only cancel as many times as they appear in both', () => {
@@ -42,7 +42,8 @@ test('every count gives exactly one result and strikes five letters', () => {
 });
 
 test('known pairs', () => {
-    assert.strictEqual(calculate('Kishore', 'Priya').result, 'A');
+    assert.strictEqual(calculate('Arjun', 'Meera').result, 'M');
+    assert.strictEqual(calculate('Varun', 'Nandini').result, 'A');
     assert.strictEqual(calculate('Romeo', 'Juliet').result, 'E');
     assert.strictEqual(calculate('Anna', 'Arjun').result, 'F');
 });
@@ -62,7 +63,7 @@ test('steps describe each round for the wheel animation', () => {
 });
 
 test('matched letters point at their partner in the other name', () => {
-    const { a, b } = compareNames('Kishore', 'Priya');
+    const { a, b } = compareNames('Arjun', 'Meera');
     a.filter((l) => l.matched).forEach((letter) => {
         assert.strictEqual(b[letter.pair].char, letter.char);
     });
