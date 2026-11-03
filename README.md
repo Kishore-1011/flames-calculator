@@ -40,7 +40,7 @@ Every result is played out step by step, so you can see exactly how the answer i
 
 ## How FLAMES works
 
-Take *Kishore* and *Priya*. They share an **i** and an **r**, which cancel out, leaving 8 letters. Starting at F, count 8 letters around F-L-A-M-E-S and cross out the one you land on, then keep counting from the next letter. The letters burn in the order L, E, M, F, S, so **A (Affection)** survives.
+Take *Arjun* and *Meera*. They share an **a** and an **r**, which cancel out, leaving 6 letters. Starting at F, count 6 letters around F-L-A-M-E-S and cross out the one you land on, then keep counting from the next letter. The letters burn in the order S, F, A, L, E, so **M (Marriage)** survives.
 
 Spaces, digits and symbols are ignored. If two names cancel out completely, the app suggests trying full names.
 
