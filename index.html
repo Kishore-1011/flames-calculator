@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FLAMES: enter two names and watch the letters burn away to reveal Friends, Love, Affection, Marriage, Enemy or Siblings.">
+    <meta name="theme-color" content="#08070c">
+    <title>FLAMES · What are you to each other?</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Unbounded:wght@400;600;800&display=swap">
+    <link rel="stylesheet" href="style.css">
+    <script src="logic.js" defer></script>
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <!-- Atmosphere -->
+    <div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
+    <canvas class="embers" id="embers" aria-hidden="true"></canvas>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="spotlight" aria-hidden="true"></div>
+
+    <header class="topbar">
+        <a class="brand" href="./" aria-label="FLAMES home">
+            <svg class="brand-flame" viewBox="0 0 24 24" aria-hidden="true">
+                <defs>
+                    <linearGradient id="flame-grad" x1="0" y1="1" x2="0" y2="0">
+                        <stop offset="0" stop-color="#ff3d7f"/><stop offset="1" stop-color="#ffb347"/>
+                    </linearGradient>
+                </defs>
+                <path fill="url(#flame-grad)" d="M12 2c.6 3.2 3.8 5 3.8 9.1 0 1.2-.4 2.2-1 3 .1-2-1.1-3.4-2.4-4.3.3 2.4-1.5 3.6-2.6 5-.7.9-1 1.9-1 3 0 .4 0 .8.1 1.2C6.6 18.3 5 16.1 5 13.5 5 8.4 10.7 6.7 12 2z"/>
+            </svg>
+            <span>flames</span>
+        </a>
+        <nav class="topnav">
+            <button class="nav-link" type="button" id="open-how">How it works</button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- 1. Names -->
+        <section class="view view-form is-active" id="view-form" aria-labelledby="headline">
+            <p class="eyebrow"><span class="dot"></span> The schoolyard classic, reimagined</p>
+            <h1 class="headline" id="headline">What are you<br><em>to each other?</em></h1>
+
+            <form class="duo" id="flames-form" novalidate>
+                <div class="name-field">
+                    <label for="name-1">You</label>
+                    <input id="name-1" name="name1" type="text" autocomplete="off" spellcheck="false"
+                           maxlength="32" placeholder="Your name" aria-describedby="form-error">
+                </div>
+                <span class="amp" aria-hidden="true">&amp;</span>
+                <div class="name-field">
+                    <label for="name-2">Partner</label>
+                    <input id="name-2" name="name2" type="text" autocomplete="off" spellcheck="false"
+                           maxlength="32" placeholder="Partner's name" aria-describedby="form-error">
+                </div>
+                <button class="cta" type="submit">
+                    <span class="cta-label">Reveal</span>
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13m-5-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+            </form>
+            <p class="form-error" id="form-error" role="alert"></p>
+            <p class="hint">Press <kbd>Enter</kbd> to reveal</p>
+
+            <ul class="legend" aria-label="What each letter means">
+                <li><b>F</b>riends</li><li><b>L</b>ove</li><li><b>A</b>ffection</li>
+                <li><b>M</b>arriage</li><li><b>E</b>nemy</li><li><b>S</b>iblings</li>
+            </ul>
+        </section>
+
+        <!-- 2. The reveal -->
+        <section class="view view-reveal" id="view-reveal" hidden aria-labelledby="reveal-title" aria-busy="true">
+            <div class="reveal-head">
+                <h2 class="reveal-title" id="reveal-title"></h2>
+                <button class="ghost-btn" type="button" id="skip">Skip <kbd>Esc</kbd></button>
+            </div>
+
+            <div class="act act-names" id="act-names">
+                <div class="chips" id="chips-a"></div>
+                <div class="chips" id="chips-b"></div>
+            </div>
+
+            <div class="act act-count" id="act-count">
+                <span class="count-num" id="count-num">0</span>
+                <span class="count-label" id="count-label">letters remain</span>
+            </div>
+
+            <div class="act act-wheel" id="act-wheel">
+                <div class="wheel" id="wheel">
+                    <div class="wheel-hand" id="wheel-hand"></div>
+                    <div class="wheel-core"><span id="wheel-step"></span></div>
+                </div>
+            </div>
+
+            <p class="caption" id="caption"></p>
+        </section>
+
+        <!-- 3. Result -->
+        <section class="view view-result" id="view-result" hidden aria-labelledby="result-word">
+            <article class="result-card" id="result-card" tabindex="-1">
+                <div class="result-glow" aria-hidden="true"></div>
+                <p class="result-pair" id="result-pair"></p>
+                <div class="result-emoji" id="result-emoji" aria-hidden="true"></div>
+                <h2 class="result-word" id="result-word"></h2>
+                <p class="result-line" id="result-line"></p>
+                <div class="result-trail" id="result-trail" aria-label="Order the letters burned"></div>
+            </article>
+
+            <div class="result-actions">
+                <button class="cta cta-small" type="button" id="download"><span>Save image</span></button>
+                <button class="ghost-btn" type="button" id="copy">Copy</button>
+                <button class="ghost-btn" type="button" id="replay">Replay</button>
+                <button class="ghost-btn" type="button" id="again">New names</button>
+            </div>
+        </section>
+    </main>
+
+    <dialog class="how" id="how" aria-labelledby="how-title">
+        <button class="how-close" type="button" id="close-how" aria-label="Close">&times;</button>
+        <h2 id="how-title">How FLAMES works</h2>
+        <ol>
+            <li><strong>Cancel shared letters.</strong> Every letter both names have in common burns away, once from each name.</li>
+            <li><strong>Count what's left.</strong> Kishore and Priya share an <em>i</em> and an <em>r</em>, so 8 letters remain.</li>
+            <li><strong>Count around the wheel.</strong> Starting at F, count 8 letters and burn the one you land on. Carry on from the next letter until one is left.</li>
+            <li><strong>Read the survivor.</strong> F Friends · L Love · A Affection · M Marriage · E Enemy · S Siblings.</li>
+        </ol>
+        <p class="how-note">Spaces, digits and symbols are ignored. It's just for fun!</p>
+    </dialog>
+
+    <p class="visually-hidden" id="announcer" aria-live="polite"></p>
+
+    <footer class="footer">Crafted by Kishore S · just for fun</footer>
+</body>
+</html>
