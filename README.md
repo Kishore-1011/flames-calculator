@@ -6,6 +6,8 @@
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES2022-F7DF1E?logo=javascript&logoColor=black)
 ![No dependencies](https://img.shields.io/badge/dependencies-none-brightgreen)
 
+**Live demo: https://kishore-1011.github.io/flames-calculator/**
+
 The schoolyard name game, reimagined as a cinematic web experience. Enter two names and watch the letters literally burn away until one of **F**riends, **L**ove, **A**ffection, **M**arriage, **E**nemy or **S**iblings survives.
 
 ![Dark hero with the headline "What are you to each other?", two name fields and glowing embers](docs/start.jpg)
